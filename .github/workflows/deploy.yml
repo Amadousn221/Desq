@@ -1,0 +1,33 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via rsync over SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          HOST: 145.79.20.84
+          USER: u415053603
+          PORT: 65002
+          TARGET: /home/u415053603/domains/desqenergy.com/public_html/wp-content/themes/desq-energy-theme
+        run: |
+          echo "$SSH_PRIVATE_KEY" > /tmp/deploy_key
+          chmod 600 /tmp/deploy_key
+          rsync -avz --delete \
+            -e "ssh -i /tmp/deploy_key -p $PORT -o StrictHostKeyChecking=no" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='*.md' \
+            --exclude='*.pdf' \
+            --exclude='specs/' \
+            --exclude='pages/' \
+            --exclude='github-actions-key*' \
+            ./ $USER@$HOST:$TARGET/
+          echo "Deploy OK"

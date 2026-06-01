@@ -1,0 +1,23 @@
+# Dépendances
+node_modules/
+vendor/
+
+# Fichiers temp
+.DS_Store
+Thumbs.db
+*.log
+
+# Uploads WordPress
+wp-content/uploads/
+
+# Fichiers sensibles
+.env
+.env.local
+
+# OS
+desktop.ini
+
+# SSH keys (ne jamais committer)
+*.pem
+*.pub
+github-actions-key*
