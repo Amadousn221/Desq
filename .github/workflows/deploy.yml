@@ -20,6 +20,17 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > /tmp/deploy_key
           chmod 600 /tmp/deploy_key
+
+          # Ajoute le host à known_hosts pour éviter les prompts
+          mkdir -p ~/.ssh
+          ssh-keyscan -p $PORT -H $HOST >> ~/.ssh/known_hosts 2>/dev/null
+
+          # Test SSH avant rsync
+          echo "=== Test connexion SSH ==="
+          ssh -i /tmp/deploy_key -p $PORT -o StrictHostKeyChecking=no $USER@$HOST "echo SSH_OK && pwd"
+
+          # Deploy
+          echo "=== rsync ==="
           rsync -avz --delete \
             -e "ssh -i /tmp/deploy_key -p $PORT -o StrictHostKeyChecking=no" \
             --exclude='.git' \
@@ -30,4 +41,4 @@ jobs:
             --exclude='pages/' \
             --exclude='github-actions-key*' \
             ./ $USER@$HOST:$TARGET/
-          echo "Deploy OK"
+          echo "=== Deploy OK ==="
