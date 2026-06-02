@@ -1,137 +1,155 @@
 # ⚙️ MA CONFIGURATION PERSONNALISÉE
 
-> Remplisse ce fichier avec TES infos, puis utilise-le comme référence.
+> Fichier de référence — NE PAS COMMITER (contient des chemins sensibles)
 
 ---
 
-## 📋 Mes infos GitHub
+## Mes infos GitHub
 
 ```
-Username GitHub          : ________________
-Repo URL (HTTPS)         : https://github.com/________________/desq-energy-theme.git
-GitHub Email             : ________________
-Nom (pour Git config)    : ________________
-Token Personal Access    : ghp_________________  ⚠️ GARDE SECRET
+Username GitHub          : Amadousn221
+Repo URL (HTTPS)         : https://github.com/Amadousn221/Desq.git
+GitHub Email             : contact@atta-africa.com
+Nom (pour Git config)    : DESQ Development
+Token Personal Access    : ⚠️ Ne pas stocker ici — utiliser GitHub Secrets
 ```
 
-### Copie-colle tes infos ici :
+### Variables d'environnement
 ```bash
-export GH_USERNAME="TonUsername"
-export GH_REPO_URL="https://github.com/TonUsername/desq-energy-theme.git"
-export GH_EMAIL="tonemail@gmail.com"
+export GH_USERNAME="Amadousn221"
+export GH_REPO_URL="https://github.com/Amadousn221/Desq.git"
+export GH_EMAIL="contact@atta-africa.com"
 export GH_NAME="DESQ Development"
 ```
 
 ---
 
-## 🖥️ Mes infos Hostinger
+## Mes infos Hostinger
 
 ```
-Domain / Subdomain       : ________________
-SSH Host                 : ________________ (user@hostinger-xxx.com)
-SSH Username             : ________________
-Chemin WordPress         : /home/________________/public_html
-Chemin Theme             : /home/________________/public_html/wp-content/themes/desq-energy-theme
+Domain                   : desqenergy.com
+IP SSH                   : 145.79.20.84
+Port SSH                 : 65002
+SSH Username             : u415053603
+Chemin WordPress         : /home/u415053603/domains/desqenergy.com/public_html
+Chemin Theme             : /home/u415053603/domains/desqenergy.com/public_html/wp-content/themes/desq-energy-theme
+Chemin Themes            : /home/u415053603/domains/desqenergy.com/public_html/wp-content/themes
 ```
 
-### Copie-colle tes infos ici :
+### Variables d'environnement
 ```bash
-export HOSTINGER_HOST="user@hostinger-xxx.com"
-export HOSTINGER_USER="user"
-export HOSTINGER_DOMAIN="https://desqenergy.com/"
-export HOSTINGER_THEME_PATH="/home/user/public_html/wp-content/themes/desq-energy-theme"
+export HOSTINGER_IP="145.79.20.84"
+export HOSTINGER_PORT="65002"
+export HOSTINGER_USER="u415053603"
+export HOSTINGER_DOMAIN="https://desqenergy.com"
+export HOSTINGER_WP_PATH="/home/u415053603/domains/desqenergy.com/public_html"
+export HOSTINGER_THEME_PATH="/home/u415053603/domains/desqenergy.com/public_html/wp-content/themes/desq-energy-theme"
 ```
 
-### Test SSH (vérifie la connexion)
+### Test SSH
 ```bash
-ssh $HOSTINGER_HOST "echo 'SSH OK!' && wp version"
+ssh -p 65002 u415053603@145.79.20.84 "echo 'SSH OK' && wp --path=$HOSTINGER_WP_PATH theme list"
 ```
 
 ---
 
-## 📂 Chemin local (ta machine)
+## Chemin local (Windows)
 
 ```
-Chemin WordPress local   : ________________
-Chemin Theme local       : ________________/wp-content/themes/desq-energy-theme
-```
-
-### Copie-colle tes infos ici :
-```bash
-export LOCAL_WP_PATH="/path/to/wordpress"
-export LOCAL_THEME_PATH="$LOCAL_WP_PATH/wp-content/themes/desq-energy-theme"
-```
-
-### Test local
-```bash
-cd $LOCAL_THEME_PATH
-git status  # Doit voir le repo
-wp theme list  # Doit lister les thèmes
+Dossier projet local     : C:\Users\LENOVO\Documents\Projets\Desq
+WordPress                : sur Hostinger uniquement (pas de WP local)
+Theme local              : C:\Users\LENOVO\Documents\Projets\Desq  (= racine du theme)
 ```
 
 ---
 
-## 🔐 Sécurité — Checklist
+## GitHub Actions — Secrets configurés
 
-- [ ] Token GitHub = **JAMAIS** partagé, **JAMAIS** commité
-- [ ] Passwords = jamais en texte clair dans les fichiers
-- [ ] `.gitignore` contient les fichiers sensibles
-- [ ] Repo GitHub = **Private**
-- [ ] SSH keys = permissions `600` (`chmod 600 ~/.ssh/id_rsa`)
+| Secret | Valeur | Usage |
+|--------|--------|-------|
+| `HOSTINGER_SSH_KEY` | Clé privée RSA | Auth SSH pour rsync |
+
+Clé publique ajoutée dans : `~/.ssh/authorized_keys` sur Hostinger
 
 ---
 
-## 🚀 Commands rapides (à adapter)
+## Auto-deploy — Comment ca marche
 
-### Clone et setup initial
-```bash
-cd $LOCAL_WP_PATH/wp-content/themes
-git clone $GH_REPO_URL
-cd desq-energy-theme
-git config user.email "$GH_EMAIL"
-git config user.name "$GH_NAME"
-git pull origin main
+```
+Push sur main
+    ↓
+GitHub Actions (ubuntu-latest)
+    ↓
+rsync via SSH (port 65002)
+    ↓ exclut : .git .github *.md *.pdf specs/ pages/
+    ↓ synchro vers :
+/home/u415053603/domains/desqenergy.com/public_html/wp-content/themes/desq-energy-theme/
 ```
 
-### Push après une session Claude Code
+Durée moyenne : ~30 secondes
+
+---
+
+## Themes disponibles sur Hostinger
+
+| Theme | Statut |
+|-------|--------|
+| `blonwe` | Theme parent actif |
+| `blonwe-child` | Child theme (3 fichiers) |
+| `desq-energy-theme` | **Notre theme custom — en développement** |
+| `hostinger-ai-theme` | Inactif |
+| `twentytwentyfive` | Inactif |
+
+---
+
+## Commands rapides
+
+### Push après une session de dev
 ```bash
-cd $LOCAL_THEME_PATH
+cd "C:\Users\LENOVO\Documents\Projets\Desq"
 git add .
-git commit -m "feat: session X - description"
+git commit -m "feat: description"
 git push origin main
+# → deploy automatique en ~30 secondes
 ```
 
-### Vérifie le déploiement
+### Vérifier ce qui est sur Hostinger
 ```bash
-# Attends 30 secondes après le push, puis :
-ssh $HOSTINGER_HOST "cd $HOSTINGER_THEME_PATH && git log -1 --oneline"
+ssh -p 65002 u415053603@145.79.20.84 "ls -la /home/u415053603/domains/desqenergy.com/public_html/wp-content/themes/desq-energy-theme/"
 ```
 
-### Vérifiez sur le site live
+### Rollback d'urgence
 ```bash
-curl "$HOSTINGER_DOMAIN/wp-content/themes/desq-energy-theme/CLAUDE.md" | head -5
+git log --oneline -10           # Voir les commits
+git reset --hard <hash>         # Revenir à un commit
+git push origin main --force    # Force push → re-deploy automatique
 ```
 
 ---
 
-## 📝 Notes
+## Securite — Checklist
 
-Ajoute tes notes ici au fur et à mesure :
+- [x] Clé SSH privée = dans GitHub Secret uniquement, jamais dans le repo
+- [x] `.gitignore` contient `*.pem`, `*.pub`, `github-actions-key*`
+- [x] Repo GitHub = Public (pas de credentials dans le code)
+- [x] SSH authorized_keys = configuré sur Hostinger
+- [ ] Activer le theme DESQ Energy dans WordPress admin
+
+---
+
+## Notes de session
 
 ```
-Session 1 : ________________
+Session 1 (01/06/2026) : Setup git, GitHub, SSH, auto-deploy. Pipeline operationnel.
 Session 2 : ________________
-Issues rencontrées : ________________
+Issues rencontrées : Mauvaise cle SSH collée dans GitHub Secret → corrigé
 ```
 
 ---
 
-## 📞 Contacts & support
+## Contacts & support
 
 - **Hostinger Support** : https://support.hostinger.com
-- **GitHub Docs** : https://docs.github.com
-- **WP-CLI** : https://developer.wordpress.org/cli
-
----
-
-**⚠️ Une fois rempli : SAVE THIS FILE → NE PARTAGE PAS (contient tes infos privées)**
+- **GitHub Actions** : https://github.com/Amadousn221/Desq/actions
+- **WP Admin** : https://desqenergy.com/wp-admin
+- **Site live** : https://desqenergy.com
