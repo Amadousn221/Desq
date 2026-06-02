@@ -57,6 +57,16 @@ require_once DESQ_DIR . '/post-types/register-testimonial.php';
 require_once DESQ_DIR . '/inc/acf.php';
 require_once DESQ_DIR . '/inc/options.php';
 
+// Désactiver les CSS de compatibilité thème WooCommerce (interfèrent avec le footer)
+add_action('wp_enqueue_scripts', function() {
+    foreach (['woocommerce-twenty-twenty-one', 'woocommerce-twenty-twenty',
+              'woocommerce-twenty-nineteen', 'woocommerce-twenty-seventeen',
+              'wc-twenty-twenty-one', 'wc-twenty-twenty', 'wc-twenty-nineteen'] as $handle) {
+        wp_dequeue_style($handle);
+        wp_deregister_style($handle);
+    }
+}, 100);
+
 add_filter('use_block_editor_for_post_type', function($enabled, $post_type) {
     if (in_array($post_type, ['desq_product', 'desq_solution'])) return false;
     return $enabled;

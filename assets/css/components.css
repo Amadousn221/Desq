@@ -838,9 +838,10 @@
    4 colonnes, fond sombre, info dynamiques ACF
 ============================================================ */
 
-.site-footer {
-  background-color: var(--color-bg-darker);
-  color: var(--color-text-on-dark);
+/* !important autorisé : override WooCommerce theme-compat CSS (wc-twenty-twenty-one etc.) */
+#site-footer.site-footer {
+  background-color: var(--color-bg-darker) !important;
+  color: var(--color-text-on-dark) !important;
 }
 
 .site-footer__main {
