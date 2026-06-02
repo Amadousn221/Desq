@@ -1,11 +1,15 @@
 <?php
-$args = [
+// Produits featured d'abord, sinon les plus récents avec image
+$q = new WP_Query([
     'post_type'      => 'desq_product',
     'posts_per_page' => 6,
     'post_status'    => 'publish',
-    'meta_query'     => [['key' => 'product_featured', 'value' => '1']],
-];
-$q = new WP_Query($args);
+    'meta_query'     => [
+        'relation' => 'AND',
+        ['key' => 'product_featured', 'value' => '1'],
+        ['key' => '_thumbnail_id',    'compare' => 'EXISTS'],
+    ],
+]);
 
 if (!$q->have_posts()) {
     $q = new WP_Query([
@@ -13,6 +17,7 @@ if (!$q->have_posts()) {
         'posts_per_page' => 6,
         'post_status'    => 'publish',
         'orderby'        => 'rand',
+        'meta_query'     => [['key' => '_thumbnail_id', 'compare' => 'EXISTS']],
     ]);
 }
 ?>
