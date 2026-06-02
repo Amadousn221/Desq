@@ -1,1 +1,172 @@
-/* design-system.css — Session 2 */
+/* DESQ Energy — Design System v1.0 */
+/* Tokens uniquement — aucun style de composant ici */
+
+:root {
+
+  /* ============================================================
+     COULEURS
+  ============================================================ */
+
+  /* Primaire — Orange solaire */
+  --color-primary:       #E8722A;
+  --color-primary-dark:  #C45E1A;
+  --color-primary-light: #FFB380;
+  --color-primary-bg:    #FFF4EE;
+  --color-primary-glow:  rgba(232, 114, 42, 0.22);
+
+  /* OKLCH — pour dégradés et effets lumineux */
+  --color-primary-oklch:      oklch(62% 0.175 47);
+  --color-primary-dark-oklch: oklch(52% 0.175 47);
+  --color-primary-muted-oklch: oklch(62% 0.08 47);
+
+  /* Secondaire — Bleu profond */
+  --color-secondary:      #0F3460;
+  --color-secondary-mid:  #1A5799;
+  --color-secondary-light: #3B7DD8;
+  --color-secondary-bg:   #EBF2FA;
+  --color-secondary-dark: #081F40;
+
+  /* Sémantiques */
+  --color-success:      #16A34A;
+  --color-success-bg:   #F0FDF4;
+  --color-warning:      #D97706;
+  --color-warning-bg:   #FFFBEB;
+  --color-danger:       #DC2626;
+  --color-danger-bg:    #FEF2F2;
+
+  /* Texte — jamais #000 pur */
+  --color-text:         #1C1C1C;
+  --color-text-muted:   #454545;
+  --color-text-light:   #787878;
+  --color-text-xlight:  #AAAAAA;
+  --color-text-on-dark: #F5F5F5;
+  --color-text-on-primary: #FFFFFF;
+
+  /* Surfaces — jamais #fff pur */
+  --color-bg:           #FAFAF8;
+  --color-bg-pure:      #FFFFFF;
+  --color-bg-alt:       #F4F4F2;
+  --color-bg-warm:      #FAF7F4;
+  --color-bg-dark:      #0F3460;
+  --color-bg-darker:    #081F40;
+  --color-border:       #E6E6E4;
+  --color-border-light: #EFEFED;
+  --color-border-strong: #C8C8C6;
+
+  /* ============================================================
+     TYPOGRAPHIE
+  ============================================================ */
+
+  --font-display: 'DM Sans', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  /* Scale */
+  --fs-xs:   0.75rem;    /* 12px */
+  --fs-sm:   0.875rem;   /* 14px */
+  --fs-base: 1rem;       /* 16px */
+  --fs-lg:   1.125rem;   /* 18px */
+  --fs-xl:   1.375rem;   /* 22px */
+  --fs-2xl:  1.75rem;    /* 28px */
+  --fs-3xl:  2.25rem;    /* 36px */
+  --fs-4xl:  3rem;       /* 48px */
+  --fs-5xl:  3.75rem;    /* 60px */
+
+  /* Weights */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Line heights */
+  --lh-tight:   1.15;
+  --lh-snug:    1.35;
+  --lh-normal:  1.6;
+  --lh-relaxed: 1.75;
+
+  /* Letter spacing */
+  --ls-tight:   -0.025em;
+  --ls-normal:   0em;
+  --ls-wide:     0.04em;
+  --ls-wider:    0.08em;
+  --ls-widest:   0.14em;
+
+  /* Longueur ligne optimale corps de texte */
+  --measure: 68ch;
+
+  /* ============================================================
+     ESPACEMENTS
+  ============================================================ */
+
+  --space-2xs: 0.125rem;  /*  2px */
+  --space-xs:  0.25rem;   /*  4px */
+  --space-sm:  0.5rem;    /*  8px */
+  --space-md:  1rem;      /* 16px */
+  --space-lg:  1.5rem;    /* 24px */
+  --space-xl:  2rem;      /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  --space-4xl: 6rem;      /* 96px */
+  --space-5xl: 8rem;      /* 128px */
+
+  /* ============================================================
+     BORDURES & RAYONS
+  ============================================================ */
+
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ============================================================
+     OMBRES
+  ============================================================ */
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 28px rgba(0,0,0,0.09), 0 4px 10px rgba(0,0,0,0.04);
+  --shadow-xl: 0 20px 48px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.06);
+
+  /* Ombres orange — stratégie Committed */
+  --shadow-primary:    0 8px 28px rgba(232,114,42,0.32);
+  --shadow-primary-sm: 0 4px 14px rgba(232,114,42,0.22);
+  --shadow-primary-lg: 0 16px 40px rgba(232,114,42,0.28);
+
+  /* ============================================================
+     TRANSITIONS & EASINGS
+  ============================================================ */
+
+  /* Ease-out uniquement — jamais bounce ni élastique */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-quart:  cubic-bezier(0.5, 0, 0.75, 0);
+
+  --transition-fast:   150ms var(--ease-out-quart);
+  --transition:        280ms var(--ease-out-quart);
+  --transition-slow:   420ms var(--ease-out-expo);
+  --transition-reveal: 650ms var(--ease-out-expo);
+
+  /* ============================================================
+     LAYOUT
+  ============================================================ */
+
+  --container-max:     1280px;
+  --container-padding: clamp(1rem, 5vw, 2rem);
+  --header-height:     72px;
+  --section-py:        clamp(3rem, 8vw, 6rem);
+
+  /* ============================================================
+     Z-INDEX
+  ============================================================ */
+
+  --z-base:    0;
+  --z-above:   10;
+  --z-overlay: 100;
+  --z-drawer:  200;
+  --z-modal:   300;
+  --z-toast:   400;
+  --z-header:  500;
+}
