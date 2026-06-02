@@ -67,6 +67,47 @@
 })();
 
 /* ============================================================
+   STATS COUNTER
+   Déclenché à l'entrée dans le viewport
+============================================================ */
+
+(function initCounters() {
+  const items = document.querySelectorAll('.stat-item__count');
+  if (!items.length) return;
+
+  const countUp = (el) => {
+    const target   = parseInt(el.dataset.target, 10);
+    const duration = 1800;
+    const step     = target / (duration / 16);
+    let current    = 0;
+
+    const tick = () => {
+      current += step;
+      if (current >= target) {
+        el.textContent = target;
+        return;
+      }
+      el.textContent = Math.floor(current);
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        countUp(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  items.forEach(el => observer.observe(el));
+})();
+
+/* ============================================================
    MOBILE MENU TOGGLE
    Placeholder — complété en Session 4
 ============================================================ */
