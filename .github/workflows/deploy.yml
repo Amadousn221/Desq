@@ -10,15 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass
-
-      - name: Deploy via rsync
+      - name: Deploy via rsync over SSH
         env:
-          SSHPASS: ${{ secrets.HOSTINGER_PASS }}
+          SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          HOST: 145.79.20.84
+          USER: u415053603
+          PORT: 65002
+          TARGET: /home/u415053603/domains/desqenergy.com/public_html/wp-content/themes/desq-energy-theme
         run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p $PORT -H $HOST >> ~/.ssh/known_hosts 2>/dev/null
+
           rsync -avz --delete \
-            -e "sshpass -e ssh -p 65002 -o StrictHostKeyChecking=no" \
+            -e "ssh -i ~/.ssh/deploy_key -p $PORT" \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='*.md' \
@@ -26,5 +32,6 @@ jobs:
             --exclude='specs/' \
             --exclude='pages/' \
             --exclude='github-actions-key*' \
-            ./ u415053603@145.79.20.84:/home/u415053603/domains/desqenergy.com/public_html/wp-content/themes/desq-energy-theme/
+            ./ $USER@$HOST:$TARGET/
+
           echo "Deploy OK"
