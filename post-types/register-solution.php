@@ -1,21 +1,19 @@
 <?php
 defined('ABSPATH') || exit;
 
-function desq_register_solution() {
+function desq_register_solution_cpt() {
     register_post_type('desq_solution', [
         'labels' => [
-            'name'          => __('Solutions', 'desq-energy'),
-            'singular_name' => __('Solution', 'desq-energy'),
-            'add_new_item'  => __('Ajouter une solution', 'desq-energy'),
-            'edit_item'     => __('Modifier la solution', 'desq-energy'),
+            'name'          => 'Solutions',
+            'singular_name' => 'Solution',
         ],
         'public'        => true,
-        'show_in_rest'  => true,
-        'supports'      => ['title', 'editor', 'thumbnail'],
-        'has_archive'   => false,
-        'rewrite'       => ['slug' => 'solutions'],
+        'has_archive'   => true,
         'menu_icon'     => 'dashicons-lightbulb',
         'menu_position' => 6,
+        'supports'      => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'rewrite'       => ['slug' => 'solution'],
+        'show_in_rest'  => false,
     ]);
 }
-add_action('init', 'desq_register_solution');
+add_action('init', 'desq_register_solution_cpt');
