@@ -6,107 +6,15 @@ Author URI: https://desqenergy.com
 Description: Theme e-commerce solaire premium — DESQ Energy, Dakar. Catalogue Felicity Solar, devis automatisé, CRM intégré.
 Version: 1.0.0
 Requires at least: 6.5
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 8.2
 License: Private
 Text Domain: desq-energy
 */
 
-/* Design tokens — voir CLAUDE.md pour la référence complète */
-:root {
-  --color-primary: #E8722A;
-  --color-primary-dark: #C45E1A;
-  --color-primary-light: #FFB380;
-  --color-primary-bg: #FFF4EE;
-
-  --color-secondary: #0F3460;
-  --color-secondary-mid: #1A5799;
-  --color-secondary-bg: #EBF2FA;
-
-  --color-success: #16A34A;
-  --color-text: #1A1A1A;
-  --color-text-muted: #444444;
-  --color-text-light: #777777;
-  --color-bg: #FFFFFF;
-  --color-bg-alt: #F7F7F7;
-  --color-border: #E8E8E8;
-
-  --font-display: 'DM Sans', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  --fs-xs: 0.75rem;
-  --fs-sm: 0.875rem;
-  --fs-base: 1rem;
-  --fs-lg: 1.125rem;
-  --fs-xl: 1.375rem;
-  --fs-2xl: 1.75rem;
-  --fs-3xl: 2.25rem;
-  --fs-4xl: 3rem;
-
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
-
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 16px rgba(0,0,0,0.1);
-
-  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: var(--font-body);
-  font-size: var(--fs-base);
-  color: var(--color-text);
-  background: var(--color-bg);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  line-height: 1.2;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-a {
-  color: var(--color-secondary-mid);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--color-primary);
-}
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin-inline: auto;
-  padding-inline: var(--space-md);
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding-inline: var(--space-xl);
-  }
-}
+/* Les styles réels sont dans /assets/css/ — chargés via wp_enqueue_style() */
+/* @import ci-dessous = fallback uniquement, pas utilisé en prod */
+@import url('assets/css/design-system.css');
+@import url('assets/css/global.css');
+@import url('assets/css/components.css');
+@import url('assets/css/animations.css');
