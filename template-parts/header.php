@@ -60,7 +60,12 @@ function desq_header_logo_markup($logo, $height = 36) {
     } elseif (has_custom_logo()) {
         the_custom_logo();
     } else {
-        echo '<span class="site-header__logo-text" aria-hidden="true">DESQ <em>Energy</em></span>';
+        printf(
+            '<img src="%s" alt="%s" height="%d" loading="eager" style="width:auto">',
+            esc_url(DESQ_URI . '/assets/images/logo-desq-energy.jpg'),
+            esc_attr(get_bloginfo('name')),
+            $height
+        );
     }
 }
 ?>
