@@ -24,7 +24,7 @@ jobs:
           ssh-keyscan -p $PORT -H $HOST >> ~/.ssh/known_hosts 2>/dev/null || true
 
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p $PORT" \
+            -e "ssh -i ~/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=no -o BatchMode=yes" \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='*.md' \
