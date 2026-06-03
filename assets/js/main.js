@@ -45,26 +45,7 @@
   });
 })();
 
-/* ============================================================
-   HEADER SCROLL
-   Placeholder — complété en Session 4 (header.php)
-   Ajoute .is-scrolled sur #site-header après 60px de scroll
-============================================================ */
-
-(function initHeaderScroll() {
-  const header = document.getElementById('site-header');
-  if (!header) return;
-
-  const SCROLL_THRESHOLD = 60;
-
-  const update = () => {
-    const scrolled = window.scrollY > SCROLL_THRESHOLD;
-    header.classList.toggle('is-scrolled', scrolled);
-  };
-
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
+/* HEADER SCROLL + MOBILE MENU → déplacés dans header.js */
 
 /* ============================================================
    STATS COUNTER
@@ -107,29 +88,3 @@
   items.forEach(el => observer.observe(el));
 })();
 
-/* ============================================================
-   MOBILE MENU TOGGLE
-   Placeholder — complété en Session 4
-============================================================ */
-
-(function initMobileMenu() {
-  const toggle = document.querySelector('[data-menu-toggle]');
-  const menu   = document.querySelector('[data-menu]');
-  if (!toggle || !menu) return;
-
-  toggle.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    menu.classList.toggle('is-open', !isOpen);
-    document.body.classList.toggle('menu-open', !isOpen);
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
-      toggle.setAttribute('aria-expanded', 'false');
-      menu.classList.remove('is-open');
-      document.body.classList.remove('menu-open');
-      toggle.focus();
-    }
-  });
-})();
