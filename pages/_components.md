@@ -31,13 +31,12 @@ qu'aux deux éléments qui demandent une action."
 ### LAYOUT DESKTOP (min-width: 1024px)
 
 Conteneur unique. Hauteur fixe : 72px (--header-height).
-Fond : var(--color-secondary) #0F3460.
+Fond : #FFFFFF.
 Position : sticky, top: 0, z-index: 100.
+Border-bottom : 1px solid #E8E8E8.
 Scroll > 80px → backdrop-filter: blur(12px)
-            + background: rgba(15, 52, 96, 0.92).
+            + background: rgba(255,255,255,0.95).
 Transition fond/blur : 300ms ease-out.
-Border-bottom au repos : aucune.
-Scroll > 80px → border-bottom: 1px solid rgba(255,255,255,0.08).
 
 Structure interne (flex, align-center, justify-space-between) :
   [LOGO] ←————————— [NAV] ——————————→ [ACTIONS]
@@ -55,10 +54,10 @@ Structure interne (flex, align-center, justify-space-between) :
                 font-family: Inter,
                 font-size: 14px,
                 font-weight: 400,
-                color: rgba(255,255,255,0.85),
+                color: #1A1A1A,
                 transition: color 150ms ease-out.
-  Hover : color #FFFFFF. Pas de soulignement. Pas de fond.
-  Item actif (page courante) : color #FFFFFF, font-weight: 500.
+  Hover : color #E8722A. Pas de soulignement. Pas de fond.
+  Item actif (page courante) : color #E8722A, font-weight: 500.
 
   Items SANS chevron : Accueil, Contact
   Items AVEC chevron (▾ 10px, opacity: 0.6, margin-left: 4px) :
