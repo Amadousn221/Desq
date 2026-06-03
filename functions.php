@@ -1,7 +1,7 @@
 <?php
 defined('ABSPATH') || exit;
 
-define('DESQ_VERSION', '1.0.0');
+define('DESQ_VERSION', '1.1.0');
 define('DESQ_DIR', get_template_directory());
 define('DESQ_URI', get_template_directory_uri());
 
